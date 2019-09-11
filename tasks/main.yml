@@ -19,3 +19,8 @@
   become: yes
   when: 
   - ansible_os_family == 'RedHat'
+
+- include_tasks: hardening_var_partition.yml
+  become: yes
+  when: 
+  - ansible_os_family == 'RedHat'
