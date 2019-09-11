@@ -1,0 +1,3 @@
+---
+# defaults file for CIS-Benchmarks-Hardening-Linux
+filesystems_state: absent

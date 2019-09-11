@@ -1,0 +1,26 @@
+---
+
+- name: Ensure seperate partition exists for /tmp 
+  systemd:
+   name: tmp.mount
+   daemon_reload: yes
+   enabled: yes
+   masked: no
+   state: started
+  when: 
+   - ansible_os_family == 'RedHat' 
+  tags:
+   - tmp_partition
+
+- name: Ensure nodev, nosuid, noexec option set on /tmp partition
+  lineinfile:
+    dest: "{{ centos_tmpmount_file }}"
+    insertafter: '^[Mount]'
+    regexp: '^(#)?Options=mode=1777'
+    line: "Options=mode=1777,strictatime,noexec,nodev,nosuid"
+  notify: restart tmp.mount
+  when:
+   - ansible_os_family == 'RedHat' 
+  tags:
+   - tmp_partition
+

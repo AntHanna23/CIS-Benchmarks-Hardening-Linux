@@ -1,0 +1,14 @@
+---
+# vars file for CIS-Benchmarks-Hardening-Linux
+path_to_CIS_conf: /etc/modprobe.d/CIS.conf
+centos_tmpmount_file: /etc/systemd/system/local-fs.target.wants/tmp.mount
+
+cis_centos_filesystems:
+ - cramfs
+ - hfs
+ - freevxfs
+ - hfsplus
+ - squashfs
+ - udf
+ - vfat  
+ - jffs

@@ -1,0 +1,10 @@
+---
+# handlers file for CIS-Benchmarks-Hardening-Linux
+- name: restart tmp.mount
+  become: yes
+  systemd:
+      name: tmp.mount
+      daemon_reload: yes
+      enabled: yes
+      masked: no
+      state: reloaded

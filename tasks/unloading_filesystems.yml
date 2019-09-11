@@ -1,0 +1,105 @@
+---
+# tasks file for CIS-Benchmarks-Hardening-Linux
+#- name: modprobe with variable
+#  modprobe:
+#   name: "{{ items }}"
+#   state: absent
+#  with_items:
+#   - "{{ cis_centos_filesystems }}"
+- name: Ensure mounting of filesystems are disabled (cramfs)
+  lineinfile:
+    dest: "{{ path_to_CIS_conf }}"
+    regexp: "^(#)?install cramfs(\\s|$)"
+    line: "install cramfs /bin/true"
+    create: yes
+  when:
+   - ansible_os_family == 'RedHat'  
+  tags:
+   - filesystems
+
+- name: Ensure mounting of filesystems are disabled (freevxfs)
+  lineinfile:
+    dest: "{{ path_to_CIS_conf }}"
+    regexp: "^(#)?install freevxfs(\\s|$)"
+    line: "install freevxfs /bin/true"
+    create: yes
+  when:
+   - ansible_os_family == 'RedHat' 
+  tags:
+   - filesystems
+
+- name: Ensure mounting of filesystems are disabled (jffs2)
+  lineinfile:
+    dest: "{{ path_to_CIS_conf }}"
+    regexp: "^(#)?install jffs2(\\s|$)"
+    line: "install jffs2 /bin/true"
+    create: yes
+  when:
+   - ansible_os_family == 'RedHat' 
+  tags:
+   - filesystems
+
+- name: Ensure mounting of filesystems are disabled (hfs)
+  lineinfile:
+    dest: "{{ path_to_CIS_conf }}"
+    regexp: "^(#)?install hfs(\\s|$)"
+    line: "install hfs /bin/true"
+    create: yes
+  when:
+   - ansible_os_family == 'RedHat' 
+  tags:
+   - filesystems
+
+- name: Ensure mounting of filesystems are disabled (hfsplus)
+  lineinfile:
+    dest: "{{ path_to_CIS_conf }}"
+    regexp: "^(#)?install hfsplus(\\s|$)"
+    line: "install hfsplus /bin/true"
+    create: yes
+  when:
+   - ansible_os_family == 'RedHat' 
+  tags:
+   - filesystems
+
+- name: Ensure mounting of filesystems are disabled (squashfs)
+  lineinfile:
+    dest: "{{ path_to_CIS_conf }}"
+    regexp: "^(#)?install squashfs(\\s|$)"
+    line: "install squashfs /bin/true"
+    create: yes
+  when:
+   - ansible_os_family == 'RedHat' 
+  tags:
+   - filesystems
+
+- name: Ensure mounting of filesystems are disabled (udf)
+  lineinfile:
+    dest: "{{ path_to_CIS_conf }}"
+    regexp: "^(#)?install udf(\\s|$)"
+    line: "install udf /bin/true"
+    create: yes
+  when:
+   - ansible_os_family == 'RedHat' 
+  tags:
+   - filesystems
+
+- name: Ensure mounting of filesystems are disabled (vfat)
+  lineinfile:
+    dest: "{{ path_to_CIS_conf }}"
+    regexp: "^(#)?install vfat(\\s|$)"
+    line: "install vfat /bin/true"
+    create: yes
+  when:
+   - ansible_os_family == 'RedHat' 
+  tags:
+   - filesystems
+
+- name: Unload filesystem modules with modprobe
+  modprobe:
+    name: "{{ cis_centos_filesystems }}"
+    state: absent
+  when:
+   - ansible_os_family == 'RedHat' 
+  tags:
+    - filesystems
+  
