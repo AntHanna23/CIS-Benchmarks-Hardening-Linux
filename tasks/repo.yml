@@ -1,0 +1,17 @@
+---
+
+- name: Ensure GPG keys are configured
+  shell: "{{ gpg_configuration_command }}"
+  changed_when: false
+  failed_when: false
+
+- name: Gather files from the repolist
+  shell: ls /etc/yum.repos.d/
+  register: repolist_names
+  
+- name: Ensure gpgcheck is globally activated
+  lineinfile:
+    dest: /etc/yum.repos.d/{{ item }}
+    regexp: "gpgcheck=0"
+    line: "gpgcheck=1"
+  with_items: repolist_names.stdout_lines

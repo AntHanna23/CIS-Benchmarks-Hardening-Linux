@@ -1,12 +1,11 @@
-Role Name
+CIS-Benchmarks-Hardening-Linux
 =========
 
-A brief description of the role goes here.
-
+This role is to apply the CIS Benchmarks Security Implementations to CentOS 7, Ubuntu 18.04, Linux distributions to allow admins to harden every Unix Server in their envirnoment in quickly. Partitioning will need to be done manuallyss
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Requirments for the Ansible Management Server is just to have Ansible, and a connection to the servers that you would like to provision
 
 Role Variables
 --------------

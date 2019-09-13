@@ -96,7 +96,7 @@
 
 - name: Unload filesystem modules with modprobe
   modprobe:
-    name: "{{ cis_centos_filesystems }}"
+    name: "{{ unwanted_filesystems }}"
     state: absent
   when:
    - ansible_os_family == 'RedHat' 

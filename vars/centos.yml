@@ -2,8 +2,10 @@
 # vars file for CIS-Benchmarks-Hardening-Linux
 path_to_CIS_conf: /etc/modprobe.d/CIS.conf
 centos_tmpmount_file: /etc/systemd/system/local-fs.target.wants/tmp.mount
+stickykey_command: df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d -perm -0002 2>/dev/null | xargs chmod a+t
+gpg_configuration_command: rpm -q gpg-pubkey --qf '%{name}-%{version}-%{release} --> %{summary}\n'
 
-cis_centos_filesystems:
+unwanted_filesystems:
  - cramfs
  - hfs
  - freevxfs

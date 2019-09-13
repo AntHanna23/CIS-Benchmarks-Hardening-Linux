@@ -1,0 +1,7 @@
+---
+- name: Disabling Automounting
+  yum:
+   name: autofs
+   state: removed
+  when: 
+    - ansible_os_family == 'RedHat'

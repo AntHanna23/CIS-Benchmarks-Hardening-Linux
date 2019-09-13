@@ -1,3 +1,0 @@
----
-- name: Ensure separate partition exists for /var
-  shell: mount | grep /var

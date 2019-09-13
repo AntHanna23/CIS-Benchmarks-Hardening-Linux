@@ -1,0 +1,8 @@
+---
+
+- name: Ensure sticky bit is set on all world-writable directories
+  shell: "{{ stickykey_command }}"
+  changed_when: false
+  failed_when: false
+  when: 
+   - ansible_os_family == 'RedHat'

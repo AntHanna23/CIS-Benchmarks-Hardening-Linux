@@ -10,17 +10,44 @@
   tags:
     - always
 
+- name: Upgrade repo packages
+  become: true
+  yum: 
+   name: "*"
+   state: latest
+  when:
+  - ansible_os_family == 'RedHat'
+
+- name: Upgrade repo packages
+  become: true
+  apt:
+   upgrade: yes
+   update_cache: yes
+   cache_valid_time: 86400
+  when:
+  - ansible_os_family == 'Debian'
+
 - include_tasks: unloading_filesystems.yml
   become: yes
   when: 
   - ansible_os_family == 'RedHat'
 
-- include_tasks: configure_tmp.yml
+- include_tasks: configure_partitions.yml
   become: yes
   when: 
   - ansible_os_family == 'RedHat'
 
-- include_tasks: hardening_var_partition.yml
+- include_tasks: stickykey.yml
+  become: yes
+  when: 
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: disabling_automounting.yml
+  become: yes
+  when: 
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: repo.yml
   become: yes
   when: 
   - ansible_os_family == 'RedHat'
