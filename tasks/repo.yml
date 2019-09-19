@@ -5,13 +5,24 @@
   changed_when: false
   failed_when: false
 
-- name: Gather files from the repolist
-  shell: ls /etc/yum.repos.d/
-  register: repolist_names
-  
 - name: Ensure gpgcheck is globally activated
-  lineinfile:
-    dest: /etc/yum.repos.d/{{ item }}
-    regexp: "gpgcheck=0"
-    line: "gpgcheck=1"
-  with_items: repolist_names.stdout_lines
+  replace:
+   name: "{{ global_gpg_check }}"
+   regexp: "^gpgcheck=0"
+   replace: "gpgcheck=1"
+
+- name: Ensure gpgcheck is globally activated | determining path to all repos
+  find: 
+    paths: "{{ path_to_repos }}"
+    patterns: "*.repo"
+  register: yum_repos
+  changed_when: no
+
+- name: Ensure gpgcheck is globally activated 
+  replace: 
+    name: "{{ item.path }}" 
+    regexp: "^gpgcheck=0"
+    replace: "gpgcheck=1"
+  with_items:
+  - "{{ yum_repos.files }}"  
+

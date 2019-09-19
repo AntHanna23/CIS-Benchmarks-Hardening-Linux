@@ -1,0 +1,7 @@
+---
+- name: Regulary check filesystem integrity
+  cron: 
+    minute: 0
+    hour: 5
+    name: "filesystem integrity check"
+    job: /usr/sbin/aide --check

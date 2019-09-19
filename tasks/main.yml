@@ -27,6 +27,13 @@
   when:
   - ansible_os_family == 'Debian'
 
+- name: Install necessary packages for audit
+  yum:
+    name: "{{ packages }}"
+    state: latest
+  when:  
+   - ansible_os_family == 'RedHat'
+ 
 - include_tasks: unloading_filesystems.yml
   become: yes
   when: 
@@ -51,3 +58,13 @@
   become: yes
   when: 
   - ansible_os_family == 'RedHat'
+
+- include_tasks: filesystem_integrity.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'  
+
+- include_tasks: secure_boot_settings.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'  

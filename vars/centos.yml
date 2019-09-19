@@ -4,6 +4,10 @@ path_to_CIS_conf: /etc/modprobe.d/CIS.conf
 centos_tmpmount_file: /etc/systemd/system/local-fs.target.wants/tmp.mount
 stickykey_command: df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d -perm -0002 2>/dev/null | xargs chmod a+t
 gpg_configuration_command: rpm -q gpg-pubkey --qf '%{name}-%{version}-%{release} --> %{summary}\n'
+global_gpg_check: /etc/yum.conf
+path_to_repos: /etc/yum.repos.d
+path_to_grub: /boot/grub2/grub.cfg
+path_to_grubuser: /boot/grub2/user.cfg
 
 unwanted_filesystems:
  - cramfs
@@ -14,3 +18,6 @@ unwanted_filesystems:
  - udf
  - vfat  
  - jffs
+
+packages:
+  - aide
