@@ -1,0 +1,14 @@
+---
+- name: Ensure authentication required for single user mode"
+  block:
+    - name: Ensure authentication required for single user mode - Emergency"
+      lineinfile:
+       dest: "{{ path_to_emergency }}"
+       regexp: '/sbin/sulogin'
+       line: "{{ ensure_auth_emergency }}"
+
+- name: "NOTSCORED | 1.4.3 | PATCH | Ensure authentication required for single user mode - Rescue"
+  lineinfile:
+    dest: "{{ path_to_rescue }}"
+    regexp: '/sbin/sulogin'
+    line: "{{ ensure_auth_rescue }}"

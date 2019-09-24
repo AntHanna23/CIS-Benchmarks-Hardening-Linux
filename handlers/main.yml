@@ -8,3 +8,7 @@
       enabled: yes
       masked: no
       state: reloaded
+
+- name: generate new grub config
+  become: yes
+  command: grub2-mkconfig -o "{{ grub_cfg.stat.lnk_source }}"

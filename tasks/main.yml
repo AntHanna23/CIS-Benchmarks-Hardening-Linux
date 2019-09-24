@@ -34,37 +34,77 @@
   when:  
    - ansible_os_family == 'RedHat'
  
-- include_tasks: unloading_filesystems.yml
+- include_tasks: section1/unloading_filesystems.yml
   become: yes
   when: 
   - ansible_os_family == 'RedHat'
 
-- include_tasks: configure_partitions.yml
+- include_tasks: section1/configure_partitions.yml
   become: yes
   when: 
   - ansible_os_family == 'RedHat'
 
-- include_tasks: stickykey.yml
+- include_tasks: section1/stickykey.yml
   become: yes
   when: 
   - ansible_os_family == 'RedHat'
 
-- include_tasks: disabling_automounting.yml
+- include_tasks: section1/disabling_automounting.yml
   become: yes
   when: 
   - ansible_os_family == 'RedHat'
 
-- include_tasks: repo.yml
+- include_tasks: section1/repo.yml
   become: yes
   when: 
   - ansible_os_family == 'RedHat'
 
-- include_tasks: filesystem_integrity.yml
+- include_tasks: section1/filesystem_integrity.yml
   become: yes
   when:
   - ansible_os_family == 'RedHat'  
 
-- include_tasks: secure_boot_settings.yml
+- include_tasks: section1/secure_boot_settings.yml
   become: yes
   when:
   - ansible_os_family == 'RedHat'  
+
+- include_tasks: section1/authentication.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section1/coredumps.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section1/XD-NX.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section1/aslr_enabled.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section1/prelink.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section1/SELinux.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section1/motd_permissions.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section1/yum_security_updates.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'

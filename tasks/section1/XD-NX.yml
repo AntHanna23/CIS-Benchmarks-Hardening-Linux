@@ -1,0 +1,5 @@
+---
+- name: Ensure Md/NX support is enabled | prevents code execution via memory page
+  shell: "{{ check_xd_nx }}"
+  register: Nx_search 
+  changed_when: "'active' not in Nx_search.stdout"

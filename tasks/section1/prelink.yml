@@ -1,0 +1,17 @@
+---
+- name: Ensure prelink is not installed
+  shell: "{{ prelink_check }}"
+  register: prelink_check
+  changed_when: no
+  failed_when: no
+  check_mode: no
+
+- name: Ensure prelink is not installed
+  shell: prelink -ua
+  when: prelink_check.rc == 0
+  ignore_errors: yes
+
+- name: Take prelink off the box
+  package: 
+    name: prelink
+    state: absent

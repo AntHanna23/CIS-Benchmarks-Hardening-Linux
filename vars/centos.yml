@@ -1,5 +1,5 @@
 ---
-# vars file for CIS-Benchmarks-Hardening-Linux
+# Variables for section one
 path_to_CIS_conf: /etc/modprobe.d/CIS.conf
 centos_tmpmount_file: /etc/systemd/system/local-fs.target.wants/tmp.mount
 stickykey_command: df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d -perm -0002 2>/dev/null | xargs chmod a+t
@@ -8,6 +8,13 @@ global_gpg_check: /etc/yum.conf
 path_to_repos: /etc/yum.repos.d
 path_to_grub: /boot/grub2/grub.cfg
 path_to_grubuser: /boot/grub2/user.cfg
+path_to_emergency: /usr/lib/systemd/system/emergency.service
+ensure_auth_emergency: 'ExecStart=-/bin/sh -c \"/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default\"'
+path_to_rescue: /usr/lib/systemd/system/rescue.service
+ensure_auth_rescue: 'ExecStart=-/bin/sh -c \"/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default\"'
+path_core_dumps: /etc/security/limits.conf
+check_xd_nx: dmesg | grep "Execute Disable"
+prelink_check: rpm -1 prelink
 
 unwanted_filesystems:
  - cramfs
@@ -19,5 +26,6 @@ unwanted_filesystems:
  - vfat  
  - jffs
 
+#packages needed for hardening
 packages:
   - aide

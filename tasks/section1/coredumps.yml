@@ -1,0 +1,16 @@
+- name: Ensure core dumps are restricted
+  lineinfile:
+   state: present
+   dest: "{{ path_core_dumps }}"
+   regexp: '^#?\\*.*core'
+   line: '* hard core 0'
+   insertbefore: '^# End of file'
+
+- name: Ensure core dumps are restricted
+  sysctl:
+   name: fs.suid_dumpable
+   value: 0
+   state: present
+   reload: yes
+   sysctl_set: yes
+   ignoreerrors: yes
