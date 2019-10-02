@@ -1,4 +1,6 @@
 ---
+#Does you OS contain a GUI
+rhel_gui: no
 # Variables for section one
 path_to_CIS_conf: /etc/modprobe.d/CIS.conf
 centos_tmpmount_file: /etc/systemd/system/local-fs.target.wants/tmp.mount
@@ -29,3 +31,11 @@ unwanted_filesystems:
 #packages needed for hardening
 packages:
   - aide
+
+
+
+motd_message: |
+  This is where the message of the day will go and can be changed by editing this variable
+
+terminal_message: |
+  This is where the message of the day will go and can be changed by editing this variable
