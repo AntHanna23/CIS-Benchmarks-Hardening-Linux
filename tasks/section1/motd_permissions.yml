@@ -1,13 +1,17 @@
 ---
 - name: Ensure motd message is configured(see var folder to edit motd)
-  blockinfile:
-    path: /etc/motd
-    block: "{{ motd_message }}"   
+  copy:
+    dest: /etc/motd
+    content: "{{ motd_message }}"   
+    owner: root
+    group: root
 
 - name: Ensure motd message is configured(see var folder to edit motd)
-  blockinfile:
-    path: /etc/issue
-    block: "{{ terminal_message }}"  
+  copy:
+    dest: /etc/issue
+    content: "{{ terminal_message }}"  
+    owner: root
+    group: root
 
 - name: Ensure permissions on /etc/motd are configured"
   file:
@@ -33,7 +37,7 @@
       group: root
       mode: 0644
 
-- name: "SCORED | 1.7.2 | PATCH | Ensure GDM login banner is configured"
+- name: Ensure GDM login banner is configured"
   lineinfile:
       dest: "{{ item.file }}"
       regexp: "{{ item.regexp }}"
@@ -49,6 +53,6 @@
       - { file: '/etc/dconf/profile/gdm', regexp:  'file-db', line: 'file-db:/usr/share/gdm/greeter-dconf-defaults' }
       - { file: '/etc/dconf/db/gdm.d/01-banner-message', regexp:  '\[org\/gnome\/login-screen\]', line: '[org/gnome/login-screen]' }
       - { file: '/etc/dconf/db/gdm.d/01-banner-message', regexp:  'banner-message-enable', line: 'banner-message-enable=true' }
-      - { file: '/etc/dconf/db/gdm.d/01-banner-message', regexp:  'banner-message-text', line: "banner-message-text='{{ rhel7cis_warning_banner }}' " }
+      - { file: '/etc/dconf/db/gdm.d/01-banner-message', regexp:  'banner-message-text', line: "banner-message-text='{{ gdm_warnng_banner }}' " }
   when:  
     rhel_gui

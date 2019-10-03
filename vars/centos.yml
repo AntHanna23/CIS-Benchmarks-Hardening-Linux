@@ -17,6 +17,23 @@ ensure_auth_rescue: 'ExecStart=-/bin/sh -c \"/usr/sbin/sulogin; /usr/bin/systemc
 path_core_dumps: /etc/security/limits.conf
 check_xd_nx: dmesg | grep "Execute Disable"
 prelink_check: rpm -1 prelink
+chrony_conf: /etc/chrony.conf
+chrony_server_ip: 0.0.0.0
+chronyd: /etc/sysconfig/chronyd
+name_of_chrony_service: chronyd
+
+inetd_commands:
+  - chkconfig chargen-dgram off
+  - chkconfig chargen-stream off
+  - chkconfig daytime-dgram off
+  - chkconfig daytime-stream off 
+  - chkconfig discard-dgram off 
+  - chkconfig discard-stream off
+  - chkconfig echo-dgram off  
+  - chkconfig echo-stream off 
+  - chkconfig time-dgram off 
+  - chkconfig time-stream off
+  - chkconfig tftp off
 
 unwanted_filesystems:
  - cramfs
@@ -28,14 +45,48 @@ unwanted_filesystems:
  - vfat  
  - jffs
 
+unwanted_packages:
+  - ypbind 
+  - rsh
+  - talk 
+  - telnet
+  - openldap-clients 
+
+disabled_services:
+  - avahi-daemon
+  - cups
+  - dhcpd
+  - sldap
+  - nfs
+  - nfs-server
+  - rpcbind
+  - named
+  - vsftpd
+  - httpd
+  - dovecot 
+  - smb
+  - squid 
+  - snmpd
+  - ypserv 
+  - rsh.socket 
+  - rlogin.socket 
+  - rexec.socket
+  - telnet.socket
+  - tftp.socket
+  - rsyncd
+  - ntalk
 #packages needed for hardening
 packages:
   - aide
-
-
+  - ntp
+  - chrony
 
 motd_message: |
-  This is where the message of the day will go and can be changed by editing this variable
+  This is where the message of the day will go and can be changed by editing this variable!!!
 
 terminal_message: |
   This is where the message of the day will go and can be changed by editing this variable
+
+gdm_warning_banner: |
+    Authorized uses only. All activity may be monitored and reported.
+# End Banner

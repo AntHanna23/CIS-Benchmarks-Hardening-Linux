@@ -1,0 +1,21 @@
+---
+- name: Seeing if xinetd service is running
+  service_facts: 
+
+- name: If xinetd exist disable services
+  shell: "{{ item }}"
+  when: ansible_facts.services["xinetd.service"] is defined
+  with_items:
+    - "{{ inetd_commands }}"
+  ignore_errors: yes
+
+- name: Disabling the xinetd service
+  service:
+   name: xinetd
+   state: stopped
+  when: ansible_facts.services["xinetd.service"] is defined
+
+- name: Delete xinetd from server
+  yum:
+    name: xinetd
+    state: absent

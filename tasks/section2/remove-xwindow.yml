@@ -1,0 +1,5 @@
+---
+- name:  Ensure X Window System is not installed 
+  package:
+    name: xorg-x11
+    state: removed

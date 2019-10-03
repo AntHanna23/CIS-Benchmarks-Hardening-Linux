@@ -1,0 +1,6 @@
+---
+- name: Uninstalling packages
+  package:
+    name: "{{ item }}"
+    state: removed
+  with_items: "{{ unwanted_packages }}"

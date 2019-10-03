@@ -1,0 +1,14 @@
+---
+- name: Ensure chrony file is configured
+  lineinfile: 
+   path: "{{ chrony_conf }}"
+   regexp: '^server '
+   line: server "{{ chrony_server_ip }}"
+  notify: restart chrony
+
+- name: Ensure chrony file is configured
+  lineinfile: 
+   path: "{{ chronyd }}"
+   line: OPTIONS="-u chrony"
+   state: present
+  notify: restart chrony

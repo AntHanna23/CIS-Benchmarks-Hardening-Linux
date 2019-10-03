@@ -12,3 +12,8 @@
 - name: generate new grub config
   become: yes
   command: grub2-mkconfig -o "{{ grub_cfg.stat.lnk_source }}"
+
+- name: restart chrony
+  service:
+    name: "{{ name_of_chrony_service }}" 
+    state: restarted

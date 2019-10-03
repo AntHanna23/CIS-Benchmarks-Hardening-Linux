@@ -1,0 +1,8 @@
+---
+- name: Disabling services accodring to the CIS Benchmarcks
+  systemd:
+   name: "{{ item }}"
+   state: stopped
+   enabled: no
+   masked: yes
+  with_items: "{{ disabled_services }}"

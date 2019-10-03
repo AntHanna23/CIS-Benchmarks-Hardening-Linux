@@ -108,3 +108,35 @@
   become: yes
   when:
   - ansible_os_family == 'RedHat'
+
+- include_tasks: section2/inetd.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section2/time_synchronization.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section2/remove-xwindow.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section2/postfix.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section2/disabling_services.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section2/service_clients.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+
