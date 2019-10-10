@@ -7,7 +7,7 @@
        regexp: '/sbin/sulogin'
        line: "{{ ensure_auth_emergency }}"
 
-- name: "NOTSCORED | 1.4.3 | PATCH | Ensure authentication required for single user mode - Rescue"
+- name: "Ensure authentication required for single user mode - Rescue"
   lineinfile:
     dest: "{{ path_to_rescue }}"
     regexp: '/sbin/sulogin'

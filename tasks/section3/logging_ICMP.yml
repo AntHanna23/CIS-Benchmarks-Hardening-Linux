@@ -1,0 +1,8 @@
+--- 
+- name: Ensure suspicious logging and ICMP requests
+  sysctl: 
+    name: "{{ item }}"
+    value: 1
+    sysctl_set: yes
+  notify: flush ipv4 tables
+  with_items: " {{ logging_icmp }}"

@@ -1,0 +1,7 @@
+ 
+- name: Ensure audit log storage size is configured"
+  lineinfile:
+      dest: "{{ auditd.conf }}"
+      regexp: "^max_log_file( |=)"
+      line: "max_log_file = "{{ max_log_size }}" "
+      state: present

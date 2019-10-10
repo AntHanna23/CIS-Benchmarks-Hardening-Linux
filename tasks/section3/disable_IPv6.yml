@@ -1,0 +1,8 @@
+---
+- name: Ensure IPv6 is disabled
+  lineinfile:
+    dest: /etc/default/grub
+    regexp: '^(GRUB_CMDLINE_LINUX=.*(?!.*ipv6\.disable=1)\"[^\"]+)(\".*)'
+    line: '\1 ipv6.disable=1\2'
+    backrefs: yes
+  notify: generate new grub config

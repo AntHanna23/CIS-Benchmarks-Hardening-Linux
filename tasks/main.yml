@@ -139,4 +139,32 @@
   when:
   - ansible_os_family == 'RedHat'
 
+- include_tasks: section3/network_parameters.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
 
+- include_tasks: section3/network_parameters_host_router.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section3/logging_ICMP.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section3/disable_IPv6.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section3/tcp_wrappers.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section4/auditd_config.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'

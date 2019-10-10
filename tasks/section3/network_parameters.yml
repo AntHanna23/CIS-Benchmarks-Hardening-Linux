@@ -1,0 +1,12 @@
+---
+- name: Ensure Ip fowarding and packet redirect is disabled
+  sysctl:
+    name: "{{ item }}"
+    value: 0
+    state: present
+    reload: yes
+  notify: 
+    - flush ipv4 tables
+  with_items:
+    -  "{{ disabling_redirect }}"
+

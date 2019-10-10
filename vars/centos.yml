@@ -21,6 +21,30 @@ chrony_conf: /etc/chrony.conf
 chrony_server_ip: 0.0.0.0
 chronyd: /etc/sysconfig/chronyd
 name_of_chrony_service: chronyd
+host_allow: /etc/host.allow
+host_deny: /etc/host.deny
+auditd.conf: /etc/audit/auditd
+
+disabling_redirect:
+  - net.ipv4.ip_forward
+  - net.ipv4.conf.all.send_redirects
+  - net.ipv4.conf.default.send_redirects
+  - net.ipv4.conf.all.secure_redirects
+  - net.ipv4.conf.default.secure_redirects
+
+disabling_forwarding:
+  - net.ipv4.route.flush
+  - net.ipv4.conf.default.accept_source_route
+
+routed_packets: 
+  - net.ipv4.conf.all.accept_source_route
+  - net.ipv4.conf.all.accept_redirects
+  - net.ipv4.conf.default.accept_redirects
+  - net.ipv4.conf.default.accept_source_route
+  - net.ipv6.conf.all.accept_ra
+  - net.ipv6.conf.default.accept_ra
+  - net.ipv6.conf.all.accept_redirects
+  - net.ipv6.conf.default.accept_redirects
 
 inetd_commands:
   - chkconfig chargen-dgram off
@@ -34,6 +58,15 @@ inetd_commands:
   - chkconfig time-dgram off 
   - chkconfig time-stream off
   - chkconfig tftp off
+
+logging_icmp:
+  - net.ipv4.conf.all.log_martians
+  - net.ipv4.conf.default.log_martians
+  - net.ipv4.icmp_echo_ignore_broadcasts
+  - net.ipv4.icmp_ignore_bogus_error_responses
+  - net.ipv4.conf.all.rp_filter
+  - net.ipv4.conf.default.rp_filter
+  - net.ipv4.tcp_syncookies
 
 unwanted_filesystems:
  - cramfs
@@ -80,6 +113,8 @@ packages:
   - aide
   - ntp
   - chrony
+  - tcp_wrappers
+  - firewalld
 
 motd_message: |
   This is where the message of the day will go and can be changed by editing this variable!!!

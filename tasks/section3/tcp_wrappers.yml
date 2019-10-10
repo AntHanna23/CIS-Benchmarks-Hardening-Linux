@@ -1,0 +1,51 @@
+- name: Ensure /etc/hosts.allow is configured
+  file:
+      path: "{{ host_allow }}"
+      owner: root
+      group: root
+      mode: 0644
+      state: touch
+  changed_when: no
+
+- name: Ensure permissions on /etc/hosts.deny are 644
+  file:
+      path: "{{ host_deny }}"
+      owner: root
+      group: root
+      mode: 0644
+      state: touch
+  changed_when: no
+
+- name: Ensure /etc/hosts.deny is configured
+  lineinfile:
+      dest: "{{ host_deny }}"
+      regexp: "^(#)?ALL"
+      line: "ALL: ALL"
+
+- name: Ensure DCCP is disabled
+  lineinfile:
+      path: "{{ path_to_CIS_conf }}"
+      regexp: "^(#)?install dccp(\\s|$)"
+      line: "install dccp /bin/true"
+      create: yes
+
+- name: Ensure SCTP is disabled
+  lineinfile:
+      dest: "{{ path_to_CIS_conf }}"
+      regexp: "^(#)?install sctp(\\s|$)"
+      line: "install sctp /bin/true"
+      create: yes
+
+- name: Ensure RDS is disabled
+  lineinfile:
+      dest: "{{ path_to_CIS_conf }}"
+      regexp: "^(#)?install rds(\\s|$)"
+      line: "install rds /bin/true"
+      create: yes 
+
+- name: Ensure TIPC is disabled
+  lineinfile:
+      dest: "{{ path_to_CIS_conf }}"
+      regexp: "^(#)?install tipc(\\s|$)"
+      line: "install tipc /bin/true"
+      create: yes
