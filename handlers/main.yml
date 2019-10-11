@@ -26,8 +26,7 @@
       sysctl_set: yes
 
 - name: reload auditd
-  service: 
+  systemd:
     name: auditd
-    state: restarted
     enabled: yes
-    masked: no
+    state: started

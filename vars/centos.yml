@@ -23,7 +23,7 @@ chronyd: /etc/sysconfig/chronyd
 name_of_chrony_service: chronyd
 host_allow: /etc/host.allow
 host_deny: /etc/host.deny
-auditd.conf: /etc/audit/auditd
+auditd_conf: /etc/audit/auditd
 
 disabling_redirect:
   - net.ipv4.ip_forward
@@ -115,12 +115,14 @@ packages:
   - chrony
   - tcp_wrappers
   - firewalld
+  - audit
+  - audit-libs
 
 motd_message: |
-  This is where the message of the day will go and can be changed by editing this variable!!!
+  Please change the motd to your required banner
 
 terminal_message: |
-  This is where the message of the day will go and can be changed by editing this variable
+  Please change the motd to your required banner
 
 gdm_warning_banner: |
     Authorized uses only. All activity may be monitored and reported.
