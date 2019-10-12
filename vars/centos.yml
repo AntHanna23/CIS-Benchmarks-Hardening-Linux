@@ -118,11 +118,12 @@ packages:
   - audit
   - audit-libs
 
+
 motd_message: |
-  Please change the motd to your required banner
+  This is where the message of the day will go and can be changed by editing this variable!!!
 
 terminal_message: |
-  Please change the motd to your required banner
+  This is where the message of the day will go and can be changed by editing this variable
 
 gdm_warning_banner: |
     Authorized uses only. All activity may be monitored and reported.
