@@ -33,11 +33,11 @@
     state: latest
   when:  
    - ansible_os_family == 'RedHat'
- 
+
 - include_tasks: section1/unloading_filesystems.yml
   become: yes
   when: 
-  - ansible_os_family == 'RedHat'
+   - ansible_os_family == 'RedHat'
 
 - include_tasks: section1/configure_partitions.yml
   become: yes
@@ -170,6 +170,11 @@
   - ansible_os_family == 'RedHat'
 
 - include_tasks: section4/grub_audit.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section4/audit_rules.yml
   become: yes
   when:
   - ansible_os_family == 'RedHat'

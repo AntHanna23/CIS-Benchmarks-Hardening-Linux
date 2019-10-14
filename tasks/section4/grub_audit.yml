@@ -1,6 +1,6 @@
 ---
 - name: Ensure auditing for processes that start prior to auditd is enabled
-  replaces: 
+  replace: 
     path: "{{ path_to_grub }}"
     regexp: '(^GRUB_CMDLINE_LINUX\s*\=\s*)(?:")(.+)(?<!audit=1)(?:")'
     replace: '\1"\2 audit=1"'
