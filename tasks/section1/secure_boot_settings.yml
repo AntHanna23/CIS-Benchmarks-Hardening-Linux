@@ -3,7 +3,7 @@
   stat:
     path: "{{ path_to_grubuser }}"
   register: stat_result
-  changed_when: stat_result.stat.exists == False 
+  failed_when: stat_result.stat.exists == False 
 
 - name: Ensure permissions on bootloader config are configured
   file:

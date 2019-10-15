@@ -1,0 +1,15 @@
+---
+- name: Ensure all log files have the right permissions
+  file: 
+    path: /var/logs
+    owner: root
+    group: root
+    mode: chmod g-wx,o-rwx 
+    state: directory
+    recurse: yes
+
+- name: Make sure logrotate is enabled
+  systemd: 
+    name: logrotate
+    state: started
+    enabled: yes

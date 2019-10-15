@@ -30,3 +30,10 @@
     name: auditd
     enabled: yes
     state: started
+
+- name: reload sshd
+  become: yes
+  systemd:
+    name: sshd
+    enabled: yes
+    state: reloaded

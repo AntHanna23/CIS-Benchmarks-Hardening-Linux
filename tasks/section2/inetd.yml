@@ -16,6 +16,6 @@
   when: ansible_facts.services["xinetd.service"] is defined
 
 - name: Delete xinetd from server
-  yum:
+  package:
     name: xinetd
     state: absent

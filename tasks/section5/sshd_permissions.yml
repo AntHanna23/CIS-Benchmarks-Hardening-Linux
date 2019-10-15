@@ -1,0 +1,111 @@
+---
+- name: Ensure cron has the correct permissions
+  file:
+    path: /etc/sshd_config
+    owner: root
+    group: root
+    mode:  og-rwx 
+  notify: reload sshd
+
+- name: Ensure SSH Protocol is set to 2
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^Protocol'
+      line: 'Protocol 2'
+  notify: reload sshd
+
+- name: Ensure SSH LogLevel is set to INFO
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^LogLevel'
+      line: 'LogLevel INFO'
+  notify: reload sshd
+
+- name: Ensure SSH X11 forwarding is disabled
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^X11Forwarding'
+      line: 'X11Forwarding no'
+  notify: reload sshd
+
+- name: Ensure SSH MaxAuthTries is set to 4 or less
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^(#)?MaxAuthTries \d'
+      line: 'MaxAuthTries 4'
+
+- name: Ensure SSH IgnoreRhosts is enabled
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^IgnoreRhosts'
+      line: 'IgnoreRhosts yes'
+
+- name: Ensure SSH HostbasedAuthentication is disabled
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^HostbasedAuthentication'
+      line: 'HostbasedAuthentication no'
+
+- name: Ensure SSH root login is disabled
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^PermitRootLogin'
+      line: 'PermitRootLogin no'
+
+- name: Ensure SSH PermitEmptyPasswords is disabled
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^PermitEmptyPasswords'
+      line: 'PermitEmptyPasswords no'
+
+- name: Ensure SSH PermitUserEnvironment is disabled
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^PermitUserEnvironment'
+      line: 'PermitUserEnvironment no'
+
+- name: Ensure only approved ciphers are used
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^Ciphers'
+      line: "Ciphers {{ cipher }}"
+
+- name: Ensure only approved MAC algorithms are used"
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^MACs'
+      line: "MACs {{ macs }}"
+
+- name: Ensure SSH Idle Timeout Interval is configured"
+  block:
+      - name: Ensure SSH Idle Timeout Interval is configured
+        lineinfile:
+            state: present
+            dest: /etc/ssh/sshd_config
+            regexp: '^ClientAliveInterval'
+            line: "ClientAliveInterval {{ clientaliveinterval }}"
+
+      - name: Ensure SSH ClientAliveCountMax set to <= 3
+        lineinfile:
+            state: present
+            dest: /etc/ssh/sshd_config
+            regexp: '^ClientAliveCountMax'
+            line: "ClientAliveCountMax {{ clientalivecountmax }}"
+
+- name: Ensure SSH LoginGraceTime is set to one minute or less
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^LoginGraceTime'
+      line: "LoginGraceTime {{ logingracetime }}"

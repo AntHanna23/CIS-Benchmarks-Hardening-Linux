@@ -1,0 +1,68 @@
+---
+- name: Enabling cron
+  systemd:
+    name: crond
+    enabled: yes
+    state: started
+
+- name: Ensure cron has the correct permissions
+  file:
+    path: /etc/crontab
+    owner: root
+    group: root
+    mode:  og-rwx 
+
+- name: Ensure cron has the correct permissions
+  file:
+    path: /etc/cron.hourly
+    owner: root
+    group: root
+    mode:  og-rwx 
+
+- name: Ensure cron has the correct permissions
+  file:
+    path: /etc/cron.daily
+    owner: root
+    group: root
+    mode:  og-rwx 
+
+- name: Ensure cron has the correct permissions
+  file:
+    path: /etc/cron.weekly
+    owner: root
+    group: root
+    mode:  og-rwx 
+
+- name: Ensure cron has the correct permissions
+  file:
+    path: /etc/cron.monthly
+    owner: root
+    group: root
+    mode:  og-rwx 
+
+- name: Ensure cron has the correct permissions
+  file:
+    path: /etc/cron.d
+    owner: root
+    group: root
+    mode:  og-rwx 
+
+- name: Ensure at/cron is restricted to authorized users 
+  file: 
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/cron.deny
+    - /etc/at.deny
+
+- name: Ensure cron has the correct permissions
+  file:
+    path: "{{ item }}"
+    owner: root
+    group: root
+    mode:  og-rwx
+    state: touch
+  with_items:
+    - /etc/cron.allow
+    - /etc/at.allow
+  changed_when: no

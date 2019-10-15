@@ -179,5 +179,14 @@
   when:
   - ansible_os_family == 'RedHat'
 
+- include_tasks: section4/enable_rsyslog.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+- include_tasks: section5/enable_cron.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
 
 

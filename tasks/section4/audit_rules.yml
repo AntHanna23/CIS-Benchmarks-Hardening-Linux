@@ -1,10 +1,8 @@
 ---
 - name: creating audit rules
-  lineinfile:
+  blockinfile:
     path: "{{ audit_rules_path }}"
-    line: "{{ item }}"
+    block: "{{ audit_rules }}"
     state: present
     insertbefore: BOF
-  with_items:
-    - audit_rules
   notify: reload auditd

@@ -1,8 +1,7 @@
 CIS-Benchmarks-Hardening-Linux
 =========
 
-This role is to apply the CIS Benchmarks Security Implementations to CentOS 7, Ubuntu 18.04, Linux distributions to allow admins to harden every Unix Server in their envirnoment in quickly. Partitioning will need to be done manuallyss
-Requirements
+This role is to apply the CIS Benchmarks Security Implementations to RedHat and Debian Linux distributions to allow admins to harden every Unix Server in their envirnoment in quickly. This role can be used immediatly and can be changed to fit your need because of the heavy use of variables for pathing/
 ------------
 
 Requirments for the Ansible Management Server is just to have Ansible, and a connection to the servers that you would like to provision
@@ -35,3 +34,11 @@ Author Information
 ------------------
 
 An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+
+Note
+------------------
+Some implementations (ex. firewall rules, partitioning etc.) will need manual intervention to finish hardening
+Section 3.6
+Section 4.1.12
+Section 4.2.1.2
+Section 4.2.1.4

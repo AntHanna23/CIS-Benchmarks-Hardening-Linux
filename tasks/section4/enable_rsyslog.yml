@@ -1,0 +1,12 @@
+---
+- name: Enabling rsyslog to replace syslogd
+  systemd:
+   name: rsyslog
+   enabled: yes
+   state: started
+
+- name: Ensure rsyslog default file permissions configured
+  lineinfile:
+      dest: "{{ rsyslog_conf_path }}"
+      regexp: '^\$FileCreateMode'
+      line: '$FileCreateMode 0640'
