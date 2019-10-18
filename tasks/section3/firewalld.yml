@@ -1,0 +1,10 @@
+--- 
+- name: Ensure firewall rules exist for all open ports
+  firewalld:
+      service: "{{ item }}"
+      state: enabled
+      zone: drop
+      permanent: true
+      immediate: true
+  notify: restart firewalld
+  with_items: "{{ allowed_services }}"

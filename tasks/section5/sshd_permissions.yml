@@ -1,7 +1,7 @@
 ---
 - name: Ensure cron has the correct permissions
   file:
-    path: /etc/sshd_config
+    path: /etc/ssh/sshd_config
     owner: root
     group: root
     mode:  og-rwx 
@@ -37,6 +37,7 @@
       dest: /etc/ssh/sshd_config
       regexp: '^(#)?MaxAuthTries \d'
       line: 'MaxAuthTries 4'
+  notify: reload sshd
 
 - name: Ensure SSH IgnoreRhosts is enabled
   lineinfile:
@@ -44,6 +45,7 @@
       dest: /etc/ssh/sshd_config
       regexp: '^IgnoreRhosts'
       line: 'IgnoreRhosts yes'
+  notify: reload sshd
 
 - name: Ensure SSH HostbasedAuthentication is disabled
   lineinfile:
@@ -51,6 +53,7 @@
       dest: /etc/ssh/sshd_config
       regexp: '^HostbasedAuthentication'
       line: 'HostbasedAuthentication no'
+  notify: reload sshd
 
 - name: Ensure SSH root login is disabled
   lineinfile:
@@ -58,6 +61,7 @@
       dest: /etc/ssh/sshd_config
       regexp: '^PermitRootLogin'
       line: 'PermitRootLogin no'
+  notify: reload sshd
 
 - name: Ensure SSH PermitEmptyPasswords is disabled
   lineinfile:
@@ -65,6 +69,7 @@
       dest: /etc/ssh/sshd_config
       regexp: '^PermitEmptyPasswords'
       line: 'PermitEmptyPasswords no'
+  notify: reload sshd
 
 - name: Ensure SSH PermitUserEnvironment is disabled
   lineinfile:
@@ -72,6 +77,7 @@
       dest: /etc/ssh/sshd_config
       regexp: '^PermitUserEnvironment'
       line: 'PermitUserEnvironment no'
+  notify: reload sshd
 
 - name: Ensure only approved ciphers are used
   lineinfile:
@@ -79,6 +85,7 @@
       dest: /etc/ssh/sshd_config
       regexp: '^Ciphers'
       line: "Ciphers {{ cipher }}"
+  notify: reload sshd
 
 - name: Ensure only approved MAC algorithms are used"
   lineinfile:
@@ -86,22 +93,23 @@
       dest: /etc/ssh/sshd_config
       regexp: '^MACs'
       line: "MACs {{ macs }}"
+  notify: reload sshd
 
-- name: Ensure SSH Idle Timeout Interval is configured"
-  block:
-      - name: Ensure SSH Idle Timeout Interval is configured
-        lineinfile:
-            state: present
-            dest: /etc/ssh/sshd_config
-            regexp: '^ClientAliveInterval'
-            line: "ClientAliveInterval {{ clientaliveinterval }}"
+- name: Ensure SSH Idle Timeout Interval is configured
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^ClientAliveInterval'
+      line: "ClientAliveInterval {{ clientaliveinterval }}"
+  notify: reload sshd
 
-      - name: Ensure SSH ClientAliveCountMax set to <= 3
-        lineinfile:
-            state: present
-            dest: /etc/ssh/sshd_config
-            regexp: '^ClientAliveCountMax'
-            line: "ClientAliveCountMax {{ clientalivecountmax }}"
+- name: Ensure SSH ClientAliveCountMax set to <= 3
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^ClientAliveCountMax'
+      line: "ClientAliveCountMax {{ clientalivecountmax }}"
+  notify: reload sshd
 
 - name: Ensure SSH LoginGraceTime is set to one minute or less
   lineinfile:
@@ -109,3 +117,37 @@
       dest: /etc/ssh/sshd_config
       regexp: '^LoginGraceTime'
       line: "LoginGraceTime {{ logingracetime }}"
+  notify: reload sshd
+
+- name: Ensure SSH LoginGraceTime is set to one minute or less
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^(#)?AllowUsers'
+      line: "AllowUsers {{ user_allowed_ssh | join(' ')}}"
+  notify: reload sshd
+
+
+- name: Ensure SSH LoginGraceTime is set to one minute or less
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^(#)?AllowGroups'
+      line: "AllowUsers {{ group_allowed_ssh | join(' ')}}"
+  notify: reload sshd
+
+- name: Ensure SSH LoginGraceTime is set to one minute or less
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^(#)?DenyUsers'
+      line: "AllowUsers {{ user_deny_ssh | join(' ')}}"
+  notify: reload sshd
+
+- name: Ensure SSH LoginGraceTime is set to one minute or less
+  lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: '^(#)?DenyGroups'
+      line: "AllowUsers {{ group_deny_ssh | join(' ')}}"
+  notify: reload sshd

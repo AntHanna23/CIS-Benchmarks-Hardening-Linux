@@ -7,6 +7,13 @@
       state: touch
   changed_when: no
 
+- name: Ensure /etc/hosts.allow is allowing the correct ips
+  lineinfile:
+      dest: "{{ host_allow }}"
+      regexp: "^(#)?ALL"
+      line: "ALL: {{ item }}"
+  with_items: "{{ allowed_ips }}"
+
 - name: Ensure permissions on /etc/hosts.deny are 644
   file:
       path: "{{ host_deny }}"
@@ -20,7 +27,7 @@
   lineinfile:
       dest: "{{ host_deny }}"
       regexp: "^(#)?ALL"
-      line: "ALL: ALL"
+      line: "ALL:ALL"
 
 - name: Ensure DCCP is disabled
   lineinfile:
