@@ -1,6 +1,7 @@
 ---
 - name: Seeing if xinetd service is running
   service_facts: 
+  check_mode: no    
 
 - name: If xinetd exist disable services
   shell: "{{ item }}"
@@ -8,14 +9,17 @@
   with_items:
     - "{{ inetd_commands }}"
   ignore_errors: yes
+  check_mode: no  
 
 - name: Disabling the xinetd service
   service:
    name: xinetd
    state: stopped
   when: ansible_facts.services["xinetd.service"] is defined
+  check_mode: no  
 
 - name: Delete xinetd from server
   package:
     name: xinetd
     state: absent
+  check_mode: no  

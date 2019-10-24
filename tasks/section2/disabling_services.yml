@@ -1,5 +1,5 @@
 ---
-- name: Disabling services accodring to the CIS Benchmarcks
+- name: Disabling services accodring to the CIS Benchmarcks (If this implementation has an issue re-save role and re-run the playbook)
   systemd:
    name: "{{ item }}"
    state: stopped

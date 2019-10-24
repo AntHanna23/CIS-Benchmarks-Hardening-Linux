@@ -1,0 +1,16 @@
+---
+- name:  Ensure password creation requirements are configured 
+  lineinfile:
+    path: "{{ item }}"
+    regexp: "^(#)?minlen "
+    line: "minlen = 14"
+    state: present
+  with_items: "{{ password_req }}"
+
+- name:  Ensure password creation requirements are configured 
+  lineinfile:
+    path: "{{ item }}"
+    regexp: "^(#)?dcredit = "
+    line: "dcredit = -1"
+    state: present
+  with_items: "{{ password_req }}"

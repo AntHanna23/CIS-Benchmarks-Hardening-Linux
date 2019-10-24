@@ -26,6 +26,9 @@ host_deny: /etc/host.deny
 auditd_conf: /etc/audit/auditd
 audit_rules_path: /etc/audit/audit.rules
 rsyslog_conf_path: /etc/rsyslog.conf
+password_req:
+  -  /etc/pam.d/password-auth 
+  -  /etc/pam.d/system-auth
 #SSH variable for sshf_config
 cipher: aes128-ctr,aes192-ctr,aes256-ctr
 macs: hmac-sha2-256,hmac-sha2-512,hmac-sha1
@@ -35,13 +38,17 @@ logingracetime: 60
 #SSH users allowed and denyed
 user_allowed_ssh:
   - ansible
+  - anthonyhanna
+
 
 group_allowed_ssh:
   - wheel
 
-#user_deny_ssh:
+user_deny_ssh:
+  - baduser
 
-#group_deny_ssh
+group_deny_ssh:
+  - badgroup
 
 
 #ip that will be added to the host.allow

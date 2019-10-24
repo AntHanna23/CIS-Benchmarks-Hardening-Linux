@@ -199,4 +199,11 @@
   when:
   - ansible_os_family == 'RedHat'
 
+- include_tasks: section5/pam_configuration.yml
+  become: yes
+  when:
+  - ansible_os_family == 'RedHat'
+
+
+
 

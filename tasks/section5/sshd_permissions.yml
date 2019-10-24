@@ -119,7 +119,7 @@
       line: "LoginGraceTime {{ logingracetime }}"
   notify: reload sshd
 
-- name: Ensure SSH LoginGraceTime is set to one minute or less
+- name: Ensure SSH allowed users  is set 
   lineinfile:
       state: present
       dest: /etc/ssh/sshd_config
@@ -127,27 +127,26 @@
       line: "AllowUsers {{ user_allowed_ssh | join(' ')}}"
   notify: reload sshd
 
-
-- name: Ensure SSH LoginGraceTime is set to one minute or less
+- name: Ensure SSH allowed groups is set 
   lineinfile:
       state: present
       dest: /etc/ssh/sshd_config
       regexp: '^(#)?AllowGroups'
-      line: "AllowUsers {{ group_allowed_ssh | join(' ')}}"
+      line: "AllowGroups {{ group_allowed_ssh | join(' ')}}"
   notify: reload sshd
 
-- name: Ensure SSH LoginGraceTime is set to one minute or less
+- name: Ensure SSH denied users is set 
   lineinfile:
       state: present
       dest: /etc/ssh/sshd_config
       regexp: '^(#)?DenyUsers'
-      line: "AllowUsers {{ user_deny_ssh | join(' ')}}"
+      line: "#DenyUsers {{ user_deny_ssh | join(' ')}}"
   notify: reload sshd
 
-- name: Ensure SSH LoginGraceTime is set to one minute or less
+- name: Ensure SSH denied groups is set 
   lineinfile:
       state: present
       dest: /etc/ssh/sshd_config
       regexp: '^(#)?DenyGroups'
-      line: "AllowUsers {{ group_deny_ssh | join(' ')}}"
+      line: "#DenyGroups {{ group_deny_ssh | join(' ')}}"
   notify: reload sshd
