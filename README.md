@@ -1,39 +1,29 @@
 CIS-Benchmarks-Hardening-Linux
 =========
 
-This role is to apply the CIS Benchmarks Security Implementations to RedHat and Debian Linux distributions to allow admins to harden every Unix Server in their envirnoment in quickly. This role can be used immediatly and can be changed to fit your need because of the heavy use of variables for pathing/
+This role is what I use to harden Linux Systems based off the Center of Internet Security Benchmarks. This currently works for CentOS but will work for Ubuntu and other distros in the future
 ------------
 
 Requirments for the Ansible Management Server is just to have Ansible, and a connection to the servers that you would like to provision
 
 Role Variables
 --------------
+The role works by searching for your distro and using the variables list that matches to run the benchmarks against it
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
-
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
 
 Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
+    - hosts: all
       roles:
-         - { role: username.rolename, x: 42 }
-
-License
--------
-
-BSD
+         - CIS-Benchmarks-Hardening-Linux
 
 Author Information
 ------------------
+To learn more about me go to anthonyhanna.com and take a look at my Resume. I am a College student just picking up projects to get some experience. Feel free to reach out and talk about tech. 
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
 
 Note
 ------------------
